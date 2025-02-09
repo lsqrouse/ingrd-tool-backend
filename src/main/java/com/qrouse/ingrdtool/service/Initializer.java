@@ -10,12 +10,8 @@ import com.qrouse.ingrdtool.model.db.RecipeIngredientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Component
 class Initializer implements CommandLineRunner {
