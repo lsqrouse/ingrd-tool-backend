@@ -2,7 +2,7 @@ package com.qrouse.ingrdtool.model;
 
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -26,5 +26,6 @@ public class ScheduledRecipe {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_def_id")
     public RecipeDef recipeDef;
-    public Date scheduledDate;
+    @NonNull
+    public LocalDate scheduledDate;
 }

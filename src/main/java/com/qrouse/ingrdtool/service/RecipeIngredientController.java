@@ -1,9 +1,9 @@
 package com.qrouse.ingrdtool.service;
 
+import com.qrouse.ingrdtool.db.IngredientDefRepository;
+import com.qrouse.ingrdtool.db.RecipeIngredientRepository;
 import com.qrouse.ingrdtool.model.IngredientDef;
 import com.qrouse.ingrdtool.model.RecipeIngredient;
-import com.qrouse.ingrdtool.model.db.IngredientDefRepository;
-import com.qrouse.ingrdtool.model.db.RecipeIngredientRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

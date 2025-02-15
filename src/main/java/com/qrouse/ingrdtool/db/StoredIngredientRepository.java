@@ -1,11 +1,11 @@
-package com.qrouse.ingrdtool.model.db;
+package com.qrouse.ingrdtool.db;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.qrouse.ingrdtool.model.StoredIngredient;
 
 public interface StoredIngredientRepository extends JpaRepository<StoredIngredient, Long> {
-    StoredIngredient findByExpirationDate(Date date);
+    StoredIngredient findByExpirationDate(LocalDate date);
 }

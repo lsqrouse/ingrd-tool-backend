@@ -1,4 +1,4 @@
-package com.qrouse.ingrdtool.model.db;
+package com.qrouse.ingrdtool.db;
 
 import java.util.Optional;
 

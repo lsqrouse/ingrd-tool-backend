@@ -1,30 +1,39 @@
 package com.qrouse.ingrdtool.service;
 
+import com.qrouse.ingrdtool.db.IngredientDefRepository;
+import com.qrouse.ingrdtool.db.RecipeDefRepository;
+import com.qrouse.ingrdtool.db.RecipeIngredientRepository;
+import com.qrouse.ingrdtool.db.ScheduledRecipeRepository;
 import com.qrouse.ingrdtool.model.IngredientDef;
 import com.qrouse.ingrdtool.model.RecipeDef;
 import com.qrouse.ingrdtool.model.RecipeIngredient;
-import com.qrouse.ingrdtool.model.db.IngredientDefRepository;
-import com.qrouse.ingrdtool.model.db.RecipeDefRepository;
-import com.qrouse.ingrdtool.model.db.RecipeIngredientRepository;
+import com.qrouse.ingrdtool.model.ScheduledRecipe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 class Initializer implements CommandLineRunner {
+        private final Logger LOG = LoggerFactory.getLogger(Initializer.class);
+
 
     private final RecipeDefRepository repository;
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final IngredientDefRepository ingredientDefRepository;
+    private final ScheduledRecipeRepository scheduledRecipeRepository;
 
     public Initializer(RecipeDefRepository repository, RecipeIngredientRepository recipeIngredientRepository,
-    IngredientDefRepository ingredientDefRepository) {
+    IngredientDefRepository ingredientDefRepository, ScheduledRecipeRepository scheduledRecipeRepository) {
         this.repository = repository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.ingredientDefRepository = ingredientDefRepository;
+        this.scheduledRecipeRepository = scheduledRecipeRepository;
     }
 
     @Override
@@ -71,5 +80,9 @@ class Initializer implements CommandLineRunner {
 
         RecipeDef macNCheese = new RecipeDef("Mac N CHeese", types, ingredientList);
         repository.save(macNCheese);
+
+        ScheduledRecipe schedule = new ScheduledRecipe("test", macNCheese, LocalDate.now());
+        LOG.info("added scheduled recipe with {}", LocalDate.now());
+        scheduledRecipeRepository.save(schedule);
     }
 }
