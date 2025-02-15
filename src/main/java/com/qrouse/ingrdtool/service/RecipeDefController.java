@@ -9,15 +9,10 @@ import com.qrouse.ingrdtool.model.db.RecipeIngredientRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -39,11 +34,13 @@ public class RecipeDefController {
 
     @GetMapping("/recipeDef")
     Collection<RecipeDef> getAll() {
+        LOG.info("Getting all recipeDefs...");
         return recipeRepository.findAll();
     }
 
     @GetMapping("/recipeDef/{id}")
     Optional<RecipeDef> getById(@PathVariable Long id) {
+        LOG.info("Getting recipedef {}", id);
         return recipeRepository.findById(id);
     }
 
