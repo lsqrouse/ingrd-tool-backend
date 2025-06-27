@@ -2,7 +2,9 @@ package com.qrouse.ingrdtool.model;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,11 +23,7 @@ public class ScheduledRecipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     @NonNull
-    public String recipeName;  
-    @Nonnull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "recipe_def_id")
-    public RecipeDef recipeDef;
+    public Long recipeDefId;
     @NonNull
-    public LocalDate scheduledDate;
+    public Instant scheduledDate;
 }

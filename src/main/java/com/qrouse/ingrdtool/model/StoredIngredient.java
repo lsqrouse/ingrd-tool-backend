@@ -2,7 +2,7 @@ package com.qrouse.ingrdtool.model;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -23,6 +23,6 @@ public class StoredIngredient {
     @JoinColumn(name = "ingredient_def_id")
     public IngredientDef ingredientDef ;
     @NonNull
-    public LocalDate expirationDate;
+    public Instant expirationDate;
     public float quantity;
 }

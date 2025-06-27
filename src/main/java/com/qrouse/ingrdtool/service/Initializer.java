@@ -14,7 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,8 +82,8 @@ class Initializer implements CommandLineRunner {
         RecipeDef macNCheese = new RecipeDef("Mac N CHeese", types, ingredientList);
         repository.save(macNCheese);
 
-        ScheduledRecipe schedule = new ScheduledRecipe("test", macNCheese, LocalDate.now());
-        LOG.info("added scheduled recipe with {}", LocalDate.now());
+        ScheduledRecipe schedule = new ScheduledRecipe(macNCheese.getId(), Instant.now().truncatedTo(ChronoUnit.DAYS));
+        LOG.info("added scheduled recipe with {}", Instant.now().truncatedTo(ChronoUnit.DAYS));
         scheduledRecipeRepository.save(schedule);
     }
 }

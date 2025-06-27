@@ -9,5 +9,5 @@ import com.qrouse.ingrdtool.model.RecipeDef;
 
 public interface RecipeDefRepository extends JpaRepository<RecipeDef, Long> {
     RecipeDef findByRecipeName(String recipeName);
-    Optional<RecipeDef> findById(Long id);
+    Optional findById(Long id);
 }
