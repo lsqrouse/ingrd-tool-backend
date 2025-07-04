@@ -6,6 +6,7 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 
 @Data
@@ -19,6 +20,7 @@ public class StoredIngredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+    @Nonnull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient_def_id")
     public IngredientDef ingredientDef ;

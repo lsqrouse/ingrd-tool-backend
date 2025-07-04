@@ -8,4 +8,5 @@ import com.qrouse.ingrdtool.model.IngredientDef;
 
 public interface IngredientDefRepository extends JpaRepository<IngredientDef, Long> {
     Optional<IngredientDef> findByIngredientName(String ingredientName);
+    Optional<IngredientDef> findById(Long id);
 }

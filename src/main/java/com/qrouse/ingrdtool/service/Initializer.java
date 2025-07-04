@@ -4,16 +4,21 @@ import com.qrouse.ingrdtool.db.IngredientDefRepository;
 import com.qrouse.ingrdtool.db.RecipeDefRepository;
 import com.qrouse.ingrdtool.db.RecipeIngredientRepository;
 import com.qrouse.ingrdtool.db.ScheduledRecipeRepository;
+import com.qrouse.ingrdtool.db.StoredIngredientRepository;
 import com.qrouse.ingrdtool.model.IngredientDef;
 import com.qrouse.ingrdtool.model.RecipeDef;
 import com.qrouse.ingrdtool.model.RecipeIngredient;
 import com.qrouse.ingrdtool.model.ScheduledRecipe;
+import com.qrouse.ingrdtool.model.StoredIngredient;
+
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -28,13 +33,15 @@ class Initializer implements CommandLineRunner {
     private final RecipeIngredientRepository recipeIngredientRepository;
     private final IngredientDefRepository ingredientDefRepository;
     private final ScheduledRecipeRepository scheduledRecipeRepository;
+    StoredIngredientRepository storedIngredientRepository;
 
     public Initializer(RecipeDefRepository repository, RecipeIngredientRepository recipeIngredientRepository,
-    IngredientDefRepository ingredientDefRepository, ScheduledRecipeRepository scheduledRecipeRepository) {
+    IngredientDefRepository ingredientDefRepository, ScheduledRecipeRepository scheduledRecipeRepository, StoredIngredientRepository storedIngredientRepository) {
         this.repository = repository;
         this.recipeIngredientRepository = recipeIngredientRepository;
         this.ingredientDefRepository = ingredientDefRepository;
         this.scheduledRecipeRepository = scheduledRecipeRepository;
+        this.storedIngredientRepository = storedIngredientRepository;
     }
 
     @Override
@@ -42,19 +49,25 @@ class Initializer implements CommandLineRunner {
         String[] types = {"dinner"};
         IngredientDef cheddarDef = new IngredientDef();
         cheddarDef.setIngredientName("Cheddar Cheese");
-        cheddarDef.setTtl("1 week");
+        cheddarDef.setTtl(Duration.ofDays(7));
         cheddarDef = ingredientDefRepository.save(cheddarDef);
 
         IngredientDef butterDef = new IngredientDef();
         butterDef.setIngredientName("Butter");
-        butterDef.setTtl("1 year");
+        butterDef.setTtl(Duration.ofDays(365));
         butterDef = ingredientDefRepository.save(butterDef);
 
         IngredientDef pastaDef = new IngredientDef();
         pastaDef.setIngredientName("Macaroni Pasta");
-        pastaDef.setTtl("forever");
+        pastaDef.setTtl(Duration.ZERO);
         pastaDef = ingredientDefRepository.save(pastaDef);
 
+        StoredIngredient pantryCheddar = new StoredIngredient(cheddarDef, Instant.now().plus(cheddarDef.ttl));
+        pantryCheddar = storedIngredientRepository.save(pantryCheddar);
+        StoredIngredient pantryButter = new StoredIngredient(butterDef, Instant.now().plus(butterDef.ttl));
+        pantryButter = storedIngredientRepository.save(pantryButter);
+        StoredIngredient pantryPasta = new StoredIngredient(pastaDef, Instant.MAX);
+        pantryPasta = storedIngredientRepository.save(pantryPasta);
 
 
 

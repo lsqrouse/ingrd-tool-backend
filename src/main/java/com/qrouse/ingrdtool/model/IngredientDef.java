@@ -2,6 +2,8 @@ package com.qrouse.ingrdtool.model;
 
 import lombok.*;
 
+import java.time.Duration;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.annotation.Nonnull;
@@ -20,5 +22,5 @@ public class IngredientDef {
     public Long id;
     @Nonnull
     public String ingredientName;
-    public String ttl;
+    public Duration ttl;
 }
